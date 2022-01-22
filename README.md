@@ -7,7 +7,7 @@
 ```sh
 $ virtualenv todo_api_env
 $ source todo_api_env/bin/activate
-(todo_api_env)$ pip install requirements.txt
+(todo_api_env)$ pip install -r requirements.txt
 
 ```
 
