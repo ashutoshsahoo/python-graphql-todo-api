@@ -1,6 +1,6 @@
 from ariadne import load_schema_from_path, make_executable_schema, \
     graphql_sync, snake_case_fallback_resolvers, ObjectType
-from ariadne.constants import PLAYGROUND_HTML
+from ariadne.explorer import ExplorerGraphiQL
 from flask import request, jsonify
 from api.queries import resolve_todos, resolve_todo
 from api.mutations import resolve_create_todo, resolve_mark_done, resolve_delete_todo, resolve_update_due_date
@@ -26,9 +26,19 @@ schema = make_executable_schema(
 )
 
 
+# Retrieve HTML for the GraphiQL.
+# If explorer implements logic dependant on current request,
+# change the html(None) call to the html(request)
+# and move this line to the graphql_explorer function.
+explorer_html = ExplorerGraphiQL().html(None)
+
 @app.route("/graphql", methods=["GET"])
-def graphql_playground():
-    return PLAYGROUND_HTML, 200
+def graphql_explorer():
+    # On GET request serve the GraphQL explorer.
+    # You don't have to provide the explorer if you don't want to
+    # but keep on mind this will not prohibit clients from
+    # exploring your API using desktop GraphQL explorer app.
+    return explorer_html, 200
 
 
 @app.route("/graphql", methods=["POST"])

@@ -7,14 +7,14 @@
 ```sh
 $ virtualenv todo_api_env
 $ source todo_api_env/bin/activate
-(todo_api_env)$ pip install requirements.txt
+(todo_api_env)$ pip3 install -r requirements.txt
 
 ```
 
 - Create some Todos
 
 ```sh
-python
+python3
 >>> from main import db
 >>> db.create_all()
 >>>
@@ -26,7 +26,7 @@ python
 {'id': None, 'completed': False, 'description': 'Run a marathon', 'due_date': '2021-08-22'}
 >>> db.session.add(todo)
 >>> db.session.commit()
->>>
+>>> exit()
 ```
 
 - Run application
@@ -127,4 +127,10 @@ mutation updateDueDate {
     errors
   }
 }
+```
+
+- Disable virtualenv
+
+```shell
+(todo_api_env)$ deactivate
 ```
